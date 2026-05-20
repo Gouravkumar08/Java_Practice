@@ -416,3 +416,434 @@ public class Main {
 
     }
 }
+```java
+// 1. Count Total Vowels in a String
+// Problem:
+// Count total vowels in a string.
+//
+// Input:
+// "Gourav Kumar"
+//
+// Expected Output:
+// 5
+
+String str1 = "Gourav Kumar";
+
+long vowelCount = str1.toLowerCase()
+        .chars()
+        .filter(ch -> "aeiou".indexOf(ch) != -1)
+        .count();
+
+System.out.println(vowelCount);
+
+
+// Output:
+// 5
+
+
+// ============================================================
+
+
+// 2. Print All Vowels
+// Problem:
+// Print all vowels from string.
+//
+// Input:
+// "Interview"
+//
+// Expected Output:
+// ieie
+
+String str2 = "Interview";
+
+String vowels = str2.toLowerCase()
+        .chars()
+        .filter(ch -> "aeiou".indexOf(ch) != -1)
+        .mapToObj(ch -> String.valueOf((char) ch))
+        .collect(Collectors.joining());
+
+System.out.println(vowels);
+
+
+// Output:
+// ieie
+
+
+// ============================================================
+
+
+// 3. Remove All Vowels
+// Problem:
+// Remove all vowels from string.
+//
+// Input:
+// "Gourav"
+//
+// Expected Output:
+// Grv
+
+String str3 = "Gourav";
+
+String noVowels = str3.chars()
+        .filter(ch -> "aeiouAEIOU".indexOf(ch) == -1)
+        .mapToObj(ch -> String.valueOf((char) ch))
+        .reduce("", (a, b) -> a + b);
+
+System.out.println(noVowels);
+
+
+// Output:
+// Grv
+
+
+// ============================================================
+
+
+// 4. Count Each Vowel Frequency
+// Problem:
+// Count frequency of each vowel.
+//
+// Input:
+// "education"
+//
+// Expected Output:
+// {a=1, e=1, i=1, o=1, u=1}
+
+String str4 = "education";
+
+Map<Character, Long> vowelFreq =
+        str4.toLowerCase()
+        .chars()
+        .mapToObj(ch -> (char) ch)
+        .filter(ch -> "aeiou".indexOf(ch) != -1)
+        .collect(Collectors.groupingBy(
+                Function.identity(),
+                Collectors.counting()
+        ));
+
+System.out.println(vowelFreq);
+
+
+// Output:
+// {a=1, e=1, i=1, o=1, u=1}
+
+
+// ============================================================
+
+
+// 5. Find First Vowel
+// Problem:
+// Find first vowel from string.
+//
+// Input:
+// "Strong"
+//
+// Expected Output:
+// o
+
+String str5 = "Strong";
+
+Character firstVowel = str5.toLowerCase()
+        .chars()
+        .mapToObj(ch -> (char) ch)
+        .filter(ch -> "aeiou".indexOf(ch) != -1)
+        .findFirst()
+        .get();
+
+System.out.println(firstVowel);
+
+
+// Output:
+// o
+
+
+// ============================================================
+
+
+// 6. Check if String Contains Any Vowel
+// Problem:
+// Check whether string contains vowel.
+//
+// Input:
+// "Sky"
+//
+// Expected Output:
+// false
+
+String str6 = "Sky";
+
+boolean hasVowel = str6.toLowerCase()
+        .chars()
+        .anyMatch(ch -> "aeiou".indexOf(ch) != -1);
+
+System.out.println(hasVowel);
+
+
+// Output:
+// false
+
+
+// ============================================================
+
+
+// 7. Count Consonants
+// Problem:
+// Count consonants in string.
+//
+// Input:
+// "Gourav"
+//
+// Expected Output:
+// 3
+
+String str7 = "Gourav";
+
+long consonantCount = str7.toLowerCase()
+        .chars()
+        .filter(ch ->
+                Character.isLetter(ch) &&
+                "aeiou".indexOf(ch) == -1
+        )
+        .count();
+
+System.out.println(consonantCount);
+
+
+// Output:
+// 3
+
+
+// ============================================================
+
+
+// 8. Reverse String Using Streams
+// Problem:
+// Reverse string using streams.
+//
+// Input:
+// "Java"
+//
+// Expected Output:
+// avaJ
+
+String str8 = "Java";
+
+String reversed = new StringBuilder(str8)
+        .reverse()
+        .chars()
+        .mapToObj(ch -> String.valueOf((char) ch))
+        .collect(Collectors.joining());
+
+System.out.println(reversed);
+
+
+// Output:
+// avaJ
+
+
+// ============================================================
+
+
+// 9. Find Duplicate Characters
+// Problem:
+// Find duplicate characters in string.
+//
+// Input:
+// "programming"
+//
+// Expected Output:
+// r=2
+// g=2
+// m=2
+
+String str9 = "programming";
+
+Map<Character, Long> duplicateMap =
+        str9.chars()
+        .mapToObj(ch -> (char) ch)
+        .collect(Collectors.groupingBy(
+                Function.identity(),
+                Collectors.counting()
+        ));
+
+duplicateMap.entrySet()
+        .stream()
+        .filter(entry -> entry.getValue() > 1)
+        .forEach(System.out::println);
+
+
+// Output:
+// r=2
+// g=2
+// m=2
+
+
+// ============================================================
+
+
+// 10. First Non-Repeating Character
+// Problem:
+// Find first non-repeating character.
+//
+// Input:
+// "swiss"
+//
+// Expected Output:
+// w
+
+String str10 = "swiss";
+
+Map<Character, Long> freqMap =
+        str10.chars()
+        .mapToObj(ch -> (char) ch)
+        .collect(Collectors.groupingBy(
+                Function.identity(),
+                LinkedHashMap::new,
+                Collectors.counting()
+        ));
+
+Character nonRepeating = freqMap.entrySet()
+        .stream()
+        .filter(entry -> entry.getValue() == 1)
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .get();
+
+System.out.println(nonRepeating);
+
+
+// Output:
+// w
+
+
+// ============================================================
+
+
+// 11. Convert String to Character List
+// Problem:
+// Convert string into character list.
+//
+// Input:
+// "Java"
+//
+// Expected Output:
+// [J, a, v, a]
+
+String str11 = "Java";
+
+List<Character> charList = str11.chars()
+        .mapToObj(ch -> (char) ch)
+        .collect(Collectors.toList());
+
+System.out.println(charList);
+
+
+// Output:
+// [J, a, v, a]
+
+
+// ============================================================
+
+
+// 12. Sort Characters Alphabetically
+// Problem:
+// Sort characters alphabetically.
+//
+// Input:
+// "dcba"
+//
+// Expected Output:
+// abcd
+
+String str12 = "dcba";
+
+String sorted = str12.chars()
+        .sorted()
+        .mapToObj(ch -> String.valueOf((char) ch))
+        .collect(Collectors.joining());
+
+System.out.println(sorted);
+
+
+// Output:
+// abcd
+
+
+// ============================================================
+
+
+// 13. Count Words in Sentence
+// Problem:
+// Count words in sentence.
+//
+// Input:
+// "Java Stream API"
+//
+// Expected Output:
+// 3
+
+String sentence1 = "Java Stream API";
+
+long wordCount = Arrays.stream(sentence1.split(" "))
+        .count();
+
+System.out.println(wordCount);
+
+
+// Output:
+// 3
+
+
+// ============================================================
+
+
+// 14. Find Longest Word in Sentence
+// Problem:
+// Find longest word from sentence.
+//
+// Input:
+// "I love SpringBoot"
+//
+// Expected Output:
+// SpringBoot
+
+String sentence2 = "I love SpringBoot";
+
+String longestWord = Arrays.stream(sentence2.split(" "))
+        .max((a, b) -> a.length() - b.length())
+        .get();
+
+System.out.println(longestWord);
+
+
+// Output:
+// SpringBoot
+
+
+// ============================================================
+
+
+// 15. Sum of Digits in String
+// Problem:
+// Find sum of digits in string.
+//
+// Input:
+// "a1b2c3"
+//
+// Expected Output:
+// 6
+
+String str15 = "a1b2c3";
+
+int digitSum = str15.chars()
+        .filter(Character::isDigit)
+        .map(ch -> ch - '0')
+        .sum();
+
+System.out.println(digitSum);
+
+
+// Output:
+// 6
+```
+
